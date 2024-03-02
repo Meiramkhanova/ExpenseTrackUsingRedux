@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 
 export default function AddItems() {
   const [name, setName] = useState("");
@@ -30,7 +31,7 @@ export default function AddItems() {
       list = JSON.parse(list);
     }
 
-    list.push({ name, amount, date });
+    list.push({ id: uuidv4(), name, amount, date });
     sessionStorage.setItem("list", JSON.stringify(list));
     navigateTo("/");
   };

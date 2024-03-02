@@ -14,10 +14,18 @@ export default function ListItems() {
     setData(list);
   }, []);
 
+  const onDelete = (id) => {
+    setData((prevList) => {
+      const updatedList = prevList.filter((expense) => expense.id !== id);
+      sessionStorage.setItem("list", JSON.stringify(updatedList));
+      return updatedList;
+    });
+  };
+
   return (
     <div>
       {data.map((expense) => (
-        <Expense expense={expense} />
+        <Expense key={expense.id} expense={expense} onDelete={onDelete} />
       ))}
     </div>
   );
