@@ -58,7 +58,7 @@ export default function AddItems() {
         value={amount}
       />
       <input onChange={handleDateChange} type="date" name="date" value={date} />
-      <button onClick={onSave}>Send</button>
+      <button onClick={onSave}>Save</button>
       <button onClick={handleClickBack}>Main Page</button>
       <button onClick={handleClicktoList}>See List</button>
     </div>
