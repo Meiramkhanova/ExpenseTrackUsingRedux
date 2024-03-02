@@ -1,8 +1,15 @@
 import { useEffect, useState } from "react";
 import Expense from "../components/Expense";
+import { useNavigate } from "react-router-dom";
 
 export default function ListItems() {
   const [data, setData] = useState([]);
+
+  const navigateTo = useNavigate();
+
+  const handleClickBack = () => {
+    navigateTo("/");
+  };
 
   useEffect(() => {
     let list = sessionStorage.getItem("list");
@@ -22,11 +29,19 @@ export default function ListItems() {
     });
   };
 
+  const totalAmount = () => {
+    return data.reduce((acc, current) => acc + parseFloat(current.amount), 0);
+  };
+
   return (
     <div>
       {data.map((expense) => (
         <Expense key={expense.id} expense={expense} onDelete={onDelete} />
       ))}
+      <button onClick={handleClickBack}>Main Page</button>
+      <div>
+        <strong>Total Amount:x${totalAmount()}</strong>
+      </div>
     </div>
   );
 }

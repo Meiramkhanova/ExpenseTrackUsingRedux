@@ -7,7 +7,16 @@ export default function AddItems() {
   const [amount, setAmount] = useState("");
   const [date, setDate] = useState("");
 
-  const navigateTo = useNavigate();
+  const navigateToBack = useNavigate();
+  const navigateToList = useNavigate();
+
+  const handleClickBack = () => {
+    navigateToBack("/");
+  };
+
+  const handleClicktoList = () => {
+    navigateToList("/list");
+  };
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -33,7 +42,10 @@ export default function AddItems() {
 
     list.push({ id: uuidv4(), name, amount, date });
     sessionStorage.setItem("list", JSON.stringify(list));
-    navigateTo("/");
+
+    setName("");
+    setAmount("");
+    setDate("");
   };
 
   return (
@@ -47,6 +59,8 @@ export default function AddItems() {
       />
       <input onChange={handleDateChange} type="date" name="date" value={date} />
       <button onClick={onSave}>Send</button>
+      <button onClick={handleClickBack}>Main Page</button>
+      <button onClick={handleClicktoList}>See List</button>
     </div>
   );
 }
