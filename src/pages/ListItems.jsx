@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Expense from "../components/Expense";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,21 +14,7 @@ export default function ListItems() {
     navigateTo("/");
   };
 
-  // useEffect(() => {
-  // let list = sessionStorage.getItem("list");
-  // if (!list) {
-  //   list = [];
-  // } else {
-  //   list = JSON.parse(list);
-  // }
-  // setData(list);
-  //   const listData = sessionStorage.getItem("list");
-  //   setData(listData ? JSON.parse(listData) : []);
-  // }, []);
-
   const onDelete = (id) => {
-    // const updatedList = data.filter((expense) => expense.id !== id);
-    // updateDataAndSessionStorage(updatedList);
     dispatch(deleteItem(id));
   };
 

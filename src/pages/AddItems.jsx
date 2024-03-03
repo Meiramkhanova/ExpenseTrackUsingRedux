@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addItem } from "../redux/actions";
-import { v4 as uuidv4 } from "uuid";
 
 export default function AddItems() {
   const dispatch = useDispatch();
@@ -37,17 +36,6 @@ export default function AddItems() {
     if (!name || !amount || !date) return;
 
     dispatch(addItem(name, amount, date));
-
-    // let list = sessionStorage.getItem("list");
-
-    // if (!list) {
-    //   list = [];
-    // } else {
-    //   list = JSON.parse(list);
-    // }
-
-    // list.push({ id: uuidv4(), name, amount, date });
-    // sessionStorage.setItem("list", JSON.stringify(list));
 
     setName("");
     setAmount("");
