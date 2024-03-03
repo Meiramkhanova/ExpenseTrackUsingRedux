@@ -1,32 +1,35 @@
 import { useEffect, useState } from "react";
 import Expense from "../components/Expense";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteItem, editItem } from "../redux/actions";
 
 export default function ListItems() {
   const [editingItemId, setEditingItemId] = useState(null);
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
+  const dispatch = useDispatch();
+  const data = useSelector((state) => state.items.list);
   const navigateTo = useNavigate();
-
   const handleClickBack = () => {
     navigateTo("/");
   };
 
-  useEffect(() => {
-    let list = sessionStorage.getItem("list");
-    if (!list) {
-      list = [];
-    } else {
-      list = JSON.parse(list);
-    }
-    setData(list);
-  }, []);
+  // useEffect(() => {
+  // let list = sessionStorage.getItem("list");
+  // if (!list) {
+  //   list = [];
+  // } else {
+  //   list = JSON.parse(list);
+  // }
+  // setData(list);
+  //   const listData = sessionStorage.getItem("list");
+  //   setData(listData ? JSON.parse(listData) : []);
+  // }, []);
 
   const onDelete = (id) => {
-    setData((prevList) => {
-      const updatedList = prevList.filter((expense) => expense.id !== id);
-      sessionStorage.setItem("list", JSON.stringify(updatedList));
-      return updatedList;
-    });
+    // const updatedList = data.filter((expense) => expense.id !== id);
+    // updateDataAndSessionStorage(updatedList);
+    dispatch(deleteItem(id));
   };
 
   const totalAmount = () => {
@@ -42,20 +45,7 @@ export default function ListItems() {
   };
 
   const onSaveEdit = (id, editedName, editedAmount, editedDate) => {
-    setData((prevList) => {
-      const updatedList = prevList.map((expense) =>
-        expense.id === id
-          ? {
-              ...expense,
-              name: editedName,
-              amount: editedAmount,
-              date: editedDate,
-            }
-          : expense
-      );
-      sessionStorage.setItem("list", JSON.stringify(updatedList));
-      return updatedList;
-    });
+    dispatch(editItem(id, editedName, editedAmount, editedDate));
     setEditingItemId(null);
   };
 
