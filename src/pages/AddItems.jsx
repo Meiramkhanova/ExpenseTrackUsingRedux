@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addItem } from "../redux/actions";
+import styled from "styled-components";
 
 export default function AddItems() {
   const dispatch = useDispatch();
@@ -43,18 +44,56 @@ export default function AddItems() {
   };
 
   return (
-    <div>
-      <input onChange={handleNameChange} type="text" name="name" value={name} />
-      <input
+    <StyledContainer>
+      <h1>Add Form</h1>
+      <Input
+        onChange={handleNameChange}
+        type="text"
+        name="name"
+        placeholder="Name"
+        value={name}
+      />
+      <Input
         onChange={handleAmountChange}
         type="text"
         name="amount"
+        placeholder="Amount"
         value={amount}
       />
-      <input onChange={handleDateChange} type="date" name="date" value={date} />
-      <button onClick={onSave}>Save</button>
-      <button onClick={handleClickBack}>Main Page</button>
-      <button onClick={handleClicktoList}>See List</button>
-    </div>
+      <Input onChange={handleDateChange} type="date" name="date" value={date} />
+      <Button onClick={onSave}>Save</Button>
+      <Wrapper>
+        <Button onClick={handleClickBack}>Main Page</Button>
+        <Button onClick={handleClicktoList}>See List</Button>
+      </Wrapper>
+    </StyledContainer>
   );
 }
+
+const StyledContainer = styled("div")`
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 25px;
+`;
+
+const Input = styled("input")`
+  box-sizing: border-box;
+  padding: 18px;
+  width: 60%;
+`;
+
+const Button = styled("button")`
+  background-color: yellow;
+  padding: 12px;
+  font-size: 20px;
+  border-radius: 15px;
+  border: none;
+  background-color: #a3e635;
+`;
+
+const Wrapper = styled("div")`
+  display: flex;
+`;
