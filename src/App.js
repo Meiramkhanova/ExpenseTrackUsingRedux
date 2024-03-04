@@ -33,7 +33,7 @@ const Wrapper = styled("div")`
 const Button = styled("button")`
   ${({ type }) =>
     type === "list"
-      ? "background-color: #dc2626;"
+      ? "background-color: #ea580c;"
       : "background-color: #a3e635;"}
   padding: 25px;
   font-size: 20px;

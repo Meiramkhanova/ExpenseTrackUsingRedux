@@ -86,8 +86,7 @@ const Input = styled("input")`
 `;
 
 const Button = styled("button")`
-  background-color: yellow;
-  padding: 12px;
+  padding: 14px;
   font-size: 20px;
   border-radius: 15px;
   border: none;
@@ -96,4 +95,6 @@ const Button = styled("button")`
 
 const Wrapper = styled("div")`
   display: flex;
+  justify-content: space-between;
+  width: 60%;
 `;

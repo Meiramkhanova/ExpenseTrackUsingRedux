@@ -1,3 +1,4 @@
+import styled from "styled-components";
 import EditForm from "./EditForm";
 
 export default function Expense(props) {
@@ -14,23 +15,39 @@ export default function Expense(props) {
   };
 
   return (
-    <div style={{ backgroundColor: "pink" }}>
-      {props.isEditing ? (
-        <EditForm
-          expense={props.expense}
-          onSaveEdit={props.onSaveEdit}
-          onCancelEdit={handleCancelEdit}
-        />
-      ) : (
-        <div>
-          <h1> Name: {props.expense.name}</h1>
-          <h1> Amount: {props.expense.amount}</h1>
-          <h1> Date: {props.expense.date}</h1>
-
-          <button onClick={handleDelete}>Delete</button>
-          <button onClick={handleEdit}>Edit</button>
-        </div>
-      )}
-    </div>
+    <tr>
+      <td>{props.expense.name}</td>
+      <td>{props.expense.amount}</td>
+      <td>{props.expense.date}</td>
+      <td style={{ width: "12%" }}>
+        {props.isEditing ? (
+          <EditForm
+            expense={props.expense}
+            onSaveEdit={props.onSaveEdit}
+            onCancelEdit={handleCancelEdit}
+          />
+        ) : (
+          <Wrapper>
+            <Button onClick={handleDelete}>Delete</Button>
+            <Button onClick={handleEdit}>Edit</Button>
+          </Wrapper>
+        )}
+      </td>
+    </tr>
   );
 }
+
+const Wrapper = styled("div")`
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  /* gap: 35px; */
+`;
+
+const Button = styled("Button")`
+  background-color: #ea580c;
+  padding: 7px;
+  font-size: 15px;
+  border: none;
+  border-radius: 12px;
+`;
