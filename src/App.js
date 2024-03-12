@@ -6,6 +6,7 @@ function App() {
   return (
     <StyledContainer>
       <h1>An App for expenses accounting using Redux</h1>
+      <h1>One Lab</h1>
       <Wrapper>
         <Link to="/add">
           <Button type="add">Add</Button>
