@@ -1,10 +1,8 @@
-import { combineReducers, createStore } from "redux";
-import itemsReducer from "./reducers";
+import { configureStore } from "@reduxjs/toolkit";
+import reducer from "./slices/slice";
 
-const rootReducer = combineReducers({
-  items: itemsReducer,
+export default configureStore({
+  reducer: {
+    adder: reducer,
+  },
 });
-
-const store = createStore(rootReducer);
-
-export default store;

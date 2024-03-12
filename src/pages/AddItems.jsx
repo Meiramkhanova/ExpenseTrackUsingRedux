@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { addItem } from "../redux/actions";
 import styled from "styled-components";
+import { ADD_ITEM } from "../redux/slices/slice";
+import { v4 as uuidv4 } from "uuid";
 
 export default function AddItems() {
   const dispatch = useDispatch();
+  const item = useSelector((state) => state.adder.list);
 
   const [name, setName] = useState("");
   const [amount, setAmount] = useState("");
@@ -36,7 +38,14 @@ export default function AddItems() {
   const onSave = () => {
     if (!name || !amount || !date) return;
 
-    dispatch(addItem(name, amount, date));
+    const newItem = {
+      id: uuidv4(),
+      name,
+      amount,
+      date,
+    };
+    dispatch(ADD_ITEM(newItem));
+    console.log("Second time: " + { item });
 
     setName("");
     setAmount("");

@@ -2,14 +2,13 @@ import { useState } from "react";
 import Expense from "../components/Expense";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteItem, editItem } from "../redux/actions";
 import styled from "styled-components";
+import { DELETE_ITEM, EDIT_ITEM } from "../redux/slices/slice";
 
 export default function ListItems() {
   const [editingItemId, setEditingItemId] = useState(null);
-  // const [data, setData] = useState([]);
   const dispatch = useDispatch();
-  const data = useSelector((state) => state.items.list);
+  const data = useSelector((state) => state.adder.list);
   const navigateTo = useNavigate();
   const handleClickMainPage = () => {
     navigateTo("/");
@@ -20,7 +19,7 @@ export default function ListItems() {
   };
 
   const onDelete = (id) => {
-    dispatch(deleteItem(id));
+    dispatch(DELETE_ITEM({ id }));
   };
 
   const totalAmount = () => {
@@ -36,7 +35,7 @@ export default function ListItems() {
   };
 
   const onSaveEdit = (id, editedName, editedAmount, editedDate) => {
-    dispatch(editItem(id, editedName, editedAmount, editedDate));
+    dispatch(EDIT_ITEM({ id, editedName, editedAmount, editedDate }));
     setEditingItemId(null);
   };
 
