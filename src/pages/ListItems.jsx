@@ -4,18 +4,14 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { DELETE_ITEM, EDIT_ITEM, SEARCH_QUERY } from "../redux/slices/slice";
+import { getFilteredExpenses } from "../selectors";
 
 export default function ListItems() {
   const [editingItemId, setEditingItemId] = useState(null);
   const dispatch = useDispatch();
   const data = useSelector((state) => state.adder.list);
   const search = useSelector((state) => state.adder.searchQuery);
-  const filteredData = data.filter((expense) => {
-    return (
-      expense.name.toLowerCase().includes(search.toLowerCase()) ||
-      expense.amount.includes(search)
-    );
-  });
+  const filteredData = useSelector(getFilteredExpenses);
   const navigateTo = useNavigate();
   const handleClickMainPage = () => {
     navigateTo("/");
