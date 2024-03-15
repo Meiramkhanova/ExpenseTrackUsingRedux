@@ -3,12 +3,19 @@ import Expense from "../components/Expense";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { DELETE_ITEM, EDIT_ITEM } from "../redux/slices/slice";
+import { DELETE_ITEM, EDIT_ITEM, SEARCH_QUERY } from "../redux/slices/slice";
 
 export default function ListItems() {
   const [editingItemId, setEditingItemId] = useState(null);
   const dispatch = useDispatch();
   const data = useSelector((state) => state.adder.list);
+  const search = useSelector((state) => state.adder.searchQuery);
+  const filteredData = data.filter((expense) => {
+    return (
+      expense.name.toLowerCase().includes(search.toLowerCase()) ||
+      expense.amount.includes(search)
+    );
+  });
   const navigateTo = useNavigate();
   const handleClickMainPage = () => {
     navigateTo("/");
@@ -30,6 +37,10 @@ export default function ListItems() {
     setEditingItemId(id);
   };
 
+  const handleSearchChange = (event) => {
+    dispatch(SEARCH_QUERY(event.target.value));
+  };
+
   const handleCancelEdit = () => {
     setEditingItemId(null);
   };
@@ -42,6 +53,12 @@ export default function ListItems() {
   return (
     <Wrapper>
       <h1 style={{ textAlign: "center" }}>List</h1>
+      <Input
+        onChange={handleSearchChange}
+        type="search"
+        name="search"
+        placeholder="Search"
+      />
       <table>
         <thead>
           <tr>
@@ -52,7 +69,7 @@ export default function ListItems() {
           </tr>
         </thead>
         <tbody>
-          {data.map((expense) => (
+          {filteredData.map((expense) => (
             <Expense
               key={expense.id}
               expense={expense}
@@ -94,5 +111,12 @@ const Button = styled("button")`
 const WrapperOfButtons = styled("div")`
   display: flex;
   justify-content: space-between;
+  width: 100%;
+`;
+
+const Input = styled("input")`
+  border: 1px solid #a3e635;
+  padding: 18px;
+  margin-bottom: 15px;
   width: 100%;
 `;

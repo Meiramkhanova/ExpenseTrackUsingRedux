@@ -14,6 +14,9 @@ function App() {
         <Link to="/list">
           <Button type="list">See List</Button>
         </Link>
+        <Link to="/items">
+          <Button type="items">See Items</Button>
+        </Link>
       </Wrapper>
     </StyledContainer>
   );

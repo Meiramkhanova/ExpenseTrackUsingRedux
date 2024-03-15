@@ -8,11 +8,16 @@ import AddItems from "./pages/AddItems";
 import ListItems from "./pages/ListItems";
 import { Provider } from "react-redux";
 import store from "./redux/store";
+import Items from "./pages/Items";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+  },
+  {
+    path: "/items",
+    element: <Items />,
   },
   {
     path: "/add",
